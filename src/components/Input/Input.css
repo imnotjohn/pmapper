@@ -21,6 +21,21 @@
 	margin-top: -0.2em;
 }
 
+#inputControls button {
+	width: 100%;
+	min-height: 2.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.275em;
+	font-weight: 300;
+	color: #ccc;
+	text-transform: uppercase;
+	background-color: #111;
+	border: 0;
+	outline: none;
+}
+
 #inputVideo {
 	width: 66.6%;
 	height: 100%;
@@ -31,7 +46,7 @@
 
 .inputParameter {
 	width: 100%;
-	height: auto;
+	height: 100%;
 	min-height: 2em;
 	background-color: #333;
 	display: flex;
@@ -44,13 +59,14 @@
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
+	color: #888;
 	font-size: 0.4em;
 	text-transform: uppercase;
 }
 .inputParameter input {
 	width: 100%;
-	background-color: #333;
-	color: #888;
+	background-color: inherit;
+	color: inherit;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -58,13 +74,12 @@
 	font-weight: 600;
 	outline: 0;
 	border: none;
-	margin-top: -0.05em;
 	margin-left: 2em;
 }
 
 #canvas {
 	width: 100%;
-	height: auto;
+	height: 100%;
 	display: block;
 }
 
