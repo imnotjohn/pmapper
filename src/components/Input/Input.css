@@ -1,20 +1,74 @@
 #inputContainer {
-	width: calc(100vw / 3);
+	width: calc(100vw / 2);
 	height: calc(100vh / 3);
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 1.75em;
 }
 
-.inputVideo {
+#media {
 	width: 100%;
 	height: 100%;
-	display: block;
-	background-color: #fff;
+	display: flex;
+}
+
+#inputControls {
+	width: 33.3%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-left: 0.2em;
 	margin-top: -0.2em;
 }
 
-.inputText {
+#inputVideo {
+	width: 66.6%;
+	height: 100%;
+	display: block;
+	background-color: #888;
+	margin-top: -0.2em;
+}
+
+.inputParameter {
+	width: 100%;
+	height: auto;
+	min-height: 2em;
+	background-color: #333;
+	display: flex;
+	flex-direction: row;
+	font-weight: 500;
+}
+.inputParameter label {
+	min-width: 8em;
+	justify-content: flex-start;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	font-size: 0.4em;
+	text-transform: uppercase;
+}
+.inputParameter input {
+	width: 100%;
+	background-color: #333;
+	color: #888;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.45em;
+	font-weight: 600;
+	outline: 0;
+	border: none;
+	margin-top: -0.05em;
+	margin-left: 2em;
+}
+
+#canvas {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+#inputText {
 	width: 100%;
 	height: auto;
 	min-height: 3em;
@@ -22,17 +76,18 @@
 	flex-direction: column;
 	align-items: flex-start;
 	font-size: 0.65em;
-	font-weight: 800;
+	font-weight: #666;
 	text-transform: capitalize;
 }
 
-.inputText hr {
+#inputText hr {
 	width: calc(100% - 1.2px);
 	height: 1.75px;
 	display: flex;
-	background-color: #fff;
-	border: solid 0.5px #fff;
+	background-color: #666;
+	border: solid 0.5px #666;
 	outline: 0;
 	text-align: center;
 	margin-top:0.7em;
 }
+
