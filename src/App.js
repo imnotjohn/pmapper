@@ -8,8 +8,8 @@ function App() {
   return (
     <div className="App">
 
-      <Input />
       <Input inputTitle="Foreground" />
+      <Input inputTitle="Background" />
 
     </div>
   );
