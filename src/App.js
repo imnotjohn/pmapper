@@ -1,20 +1,59 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 import Input from './components/Input/Input';
 
-function App() {
-  return (
-    <div className="App">
+// testing Presentation API
+const presURLS = ['/components/Input/input1.html', '/components/Input/input2.html'];
+const request = new PresentationRequest(presURLS);
 
-	  <img src={logo} alt="Design"/>
+export default class App extends Component {
+	constructor(props) {
+		super(props);
 
-      <Input inputTitle="Foreground" />
-      <Input inputTitle="Background" />
+		this.state = {
+			presAvailabile: 'none',
+		}
+	}
 
-    </div>
-  );
+	componentDidMount() {
+		request.getAvailability()
+			.then( (availability) => {
+				// this.handleAvailabilityChange(availability.value);
+				this.handleAvailabilityChange(true);
+				availability.onchange = () => {
+					this.handleAvailabilityChange(this.value);
+				}
+			}).catch( () => {
+				this.handleAvailabilityChange(true);
+			})
+	}
+
+	// testing Presentation API
+	handleAvailabilityChange = (available) => {
+		this.setState({
+			presAvailable: available,
+		});
+	}
+
+	startPresentation = (e) => {
+		e.preventDefault();
+
+		request.start();
+	}
+
+	render() {
+  	  return (
+    	<div className="App">
+
+	  	  <button ref="presBtn" onClick={this.startPresentation} style={{display: this.state.presAvailable === 'true' ? 'none' : 'true'}}><img src={logo} alt="Design"/>
+	  	  </button>
+
+      	  <Input inputTitle="Foreground" />
+      	  <Input inputTitle="Background" />
+
+    	</div>
+  	  );
+	}
 }
-
-export default App;

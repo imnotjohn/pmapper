@@ -55,6 +55,7 @@ export default class Input extends Component {
 		ctxRef.drawImage(context, 0, 0, canvasWidth, canvasHeight);
 	}
 
+
 	componentDidMount() {
 		const canvas = this.refs.canvas;
 		const ctx = canvas.getContext("2d");
@@ -66,7 +67,6 @@ export default class Input extends Component {
 		ctxImage.onload = () => {
 			ctx.drawImage(ctxImage, 0, 0, ctxWidth, ctxHeight);
 		}
-		// this.drawCanvas(ctx, ctxImage, ctxWidth, ctxHeight);
 	}
 
 	renderParameters = () => {
@@ -78,7 +78,7 @@ export default class Input extends Component {
 					</div>
 				);
 			}))
-	}
+		}
 
 	render() {
 		const inputTitle = this.props.inputTitle ? this.props.inputTitle : 'Input';
@@ -99,7 +99,7 @@ export default class Input extends Component {
 					<div ref="inputControls" id="inputControls">
 						{this.renderParameters()}
 						<span>
-							<button onClick={this.presentationHandler} type="submit">
+							<button ref="presBtn" style={{display: 'none'}} type="submit">
 								{ this.state.isPresentation ? 'close' : 'open' }
 							</button>
 						</span>
