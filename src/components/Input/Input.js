@@ -4,6 +4,8 @@ import './Input.css';
 import imgSrc from './../../assets/test.png';
 
 // variables for transformation matrix
+let canvas;
+let ctx;
 let xScale; // value of 1 == no scaling
 let ySkew;
 let xSkew;
@@ -35,7 +37,7 @@ export default class Input extends Component {
 		}
 	}
 
-	parameterHandler = (e, ctxRef) => {
+	parameterHandler = (e) => {
 		e.preventDefault();
 
 		const transformState = {...this.state.transform};
@@ -56,8 +58,17 @@ export default class Input extends Component {
 			xTranslate = transformState.xTranslate;
 			yTranslate = transformState.yTranslate;
 
-			// this.transformContext(ctxRef);
+			this.transformContext(ctx);
 		});
+	}
+
+	playSelectedFile = (e) => {
+		let URL = window.URL || window.webkitURL;
+		let file = e.target.files[0];
+		let fileURL = URL.createObjectURL(file);
+
+		let videoPlayer = this.refs.videoPlayer;
+		videoPlayer.src = fileURL;
 	}
 
 	presentationHandler = (e) => {
@@ -68,29 +79,28 @@ export default class Input extends Component {
 		});
 	}
 
-	drawContext = (ctxRef, ctxImg, ctxWidth, ctxHeight) => {
-		ctxRef.drawImage(ctxImg, 0, 0, ctxWidth, ctxHeight);
-	}
+	// drawContext = (ctxRef, ctxImg, ctxWidth, ctxHeight) => {
+		// ctxRef.drawImage(ctxImg, 0, 0, ctxWidth, ctxHeight);
+	// }
 
-	transformContext = (ctx) => {
-		ctx.setTransform(xScale, ySkew, xSkew, yScale, xTranslate, yTranslate);
+	// transformContext = (ctx) => {
+		// ctx.transform(xScale, ySkew, xSkew, yScale, xTranslate, yTranslate);
+		// ctx.fillRect(25, 25, 50, 50);
 
-		console.log(`getTransform: ${ctx.getTransform()}`);
-	}
+		// console.log(`getTransform: ${ctx.getTransform()}`);
+	// }
 
 	componentDidMount() {
-		const canvas = this.refs.canvas;
-		const ctx = canvas.getContext('2d');
-		const ctxImage = this.refs.contextImage;
+		// canvas = this.refs.canvas;
+		// ctx = canvas.getContext('2d');
+		// const ctxImage = this.refs.contextImage;
 
-		const ctxWidth = 1280/4;
-		const ctxHeight = 720/4;
+		// const ctxWidth = 1280/4;
+		// const ctxHeight = 720/4;
 
-		this.transformContext(ctx);
-
-		ctxImage.onload = () => {
-			ctx.drawImage(ctxImage, 0, 0, ctxWidth, ctxHeight);
-		}
+		// ctxImage.onload = () => {
+			// ctx.drawImage(ctxImage, 0, 0, ctxWidth, ctxHeight);
+		// }
 
 		// ctxImage.onload = () => {
 			// this.drawContext(ctx, ctxImage, 0, 0, ctxWidth, ctxHeight);
@@ -119,10 +129,15 @@ export default class Input extends Component {
 					<hr />
 				</div>
 				<div id="media">
-					<div ref="inputVideo" id="inputVideo">
+					<div id="inputVideo">
+						{/*
 						<canvas ref="canvas" id="canvas">
 							<img ref="contextImage" src={imgSrc} alt="test" />
 						</canvas>
+						*/}
+						<video ref="videoPlayer" controls>
+						</video>
+						<input onChange={this.playSelectedFile} id="inputVideoBtn" type="file" accept="video/mp4"/>
 					</div>
 					<div ref="inputControls" id="inputControls">
 						{this.renderParameters()}
