@@ -8,6 +8,8 @@ import Input from './components/Input/Input';
 const presURLS = ['/components/Input/input1.html', '/components/Input/input2.html'];
 const request = new PresentationRequest(presURLS);
 
+let currentTime;
+
 export default class App extends Component {
 	constructor(props) {
 		super(props);
@@ -15,6 +17,13 @@ export default class App extends Component {
 		this.state = {
 			presAvailabile: 'none',
 		}
+	}
+
+	updateCurrentTime = (t) => {
+		currentTime = t;
+
+		console.log('current time');
+		console.log(`ct: ${currentTime}`);
 	}
 
 	componentDidMount() {
@@ -50,8 +59,8 @@ export default class App extends Component {
 	  	  <button ref="presBtn" onClick={this.startPresentation} style={{display: this.state.presAvailable === 'true' ? 'none' : 'true'}}><img src={logo} alt="Design"/>
 	  	  </button>
 
-      	  <Input inputTitle="Foreground" />
-      	  <Input inputTitle="Background" />
+      	  <Input getCurrentTime={this.updateCurrentTime}/>
+      	  <Input setCurrentTime={currentTime} />
 
     	</div>
   	  );

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactPlayer from 'react-player';
 import './Input.css';
 
 import imgSrc from './../../assets/test.png';
@@ -34,6 +35,7 @@ export default class Input extends Component {
 				yTranslate: 0,
 			},
 			isPresentation: false,
+			videoURL: '',
 		}
 	}
 
@@ -68,7 +70,11 @@ export default class Input extends Component {
 		let fileURL = URL.createObjectURL(file);
 
 		let videoPlayer = this.refs.videoPlayer;
-		videoPlayer.src = fileURL;
+		videoPlayer.url = fileURL;
+
+		this.setState({
+			videoURL: fileURL,
+		});
 	}
 
 	presentationHandler = (e) => {
@@ -105,6 +111,27 @@ export default class Input extends Component {
 		// ctxImage.onload = () => {
 			// this.drawContext(ctx, ctxImage, 0, 0, ctxWidth, ctxHeight);
 		// }
+		//
+		this.useEffect();
+	}
+
+	useEffect = () => {
+		const vidPlayer = this.refs.videoPlayer;
+
+		let interval = setInterval( () => {
+			if (this.props.getCurrentTime) {
+				console.log('useEffect');
+				console.log(vidPlayer.getCurrentTime());
+				let ct = vidPlayer.getCurrentTime();
+				this.props.getCurrentTime(ct);
+				
+			} else {
+				let currentTime = parseFloat(this.props.setCurrentTime);
+				vidPlayer.seekTo(currentTime);
+				}
+			}, 1000);
+
+			return () => clearInterval(interval);
 	}
 
 	renderParameters = () => {
@@ -135,8 +162,10 @@ export default class Input extends Component {
 							<img ref="contextImage" src={imgSrc} alt="test" />
 						</canvas>
 						*/}
-						<video ref="videoPlayer" controls>
-						</video>
+			{/*<video ref="videoPlayer" controls /> */}
+						<div className="react-player-wrapper">
+							<ReactPlayer className="react-player" ref="videoPlayer" url={this.state.videoURL} controls={true} playing />
+						</div>
 						<input onChange={this.playSelectedFile} id="inputVideoBtn" type="file" accept="video/mp4"/>
 					</div>
 					<div ref="inputControls" id="inputControls">
